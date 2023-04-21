@@ -1,0 +1,31 @@
+{
+  "expo": {
+    "name": "test2",
+    "slug": "test2",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.lammaprojects.test2"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "3584528b-b41a-4aac-9085-772bb4d42f79"
+      }
+    },
+    "owner": "lammaprojects"
+  }
+}

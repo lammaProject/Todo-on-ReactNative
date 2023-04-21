@@ -6,22 +6,19 @@ import MyList from "./mylist/MyList";
 
 export default function App() {
   const [bol, setBol] = useState(false);
+  const [text, setText] = useState('Посмотреть список')
   const [fontsLoaded] = Font.useFonts({
     "Inter-Black": require("./assets/fonts/Inter-Black.otf"),
     "Inter-SemiBoldItalic":
       "https://rsms.me/inter/font-files/Inter-SemiBoldItalic.otf?v=3.12",
   });
 
-  // useEffect(() => {
-  //   async function prepare() {
-  //     await SplashScreen.preventAutoHideAsync();
-  //   }
-
-  //   prepare();
-  // }, []);
-
   useEffect(() => {
-    
+    if (bol) {
+      setText('Вернуться в меню')
+    } else {
+      setText('Посмотреть список')
+    }
   }, [bol]);
 
   function handle() {
@@ -50,7 +47,7 @@ export default function App() {
       ) : (
        <MyList></MyList>
       )}
-      <Button onPress={handle} title="Посмотреть список"></Button>
+      <Button onPress={handle} title={text}></Button>
       {/* <Text style={{ fontFamily: "Inter-SemiBoldItalic" }}>
         Inter SemiBoldItalic
       </Text> */}

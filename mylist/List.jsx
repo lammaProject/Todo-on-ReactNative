@@ -9,7 +9,7 @@ import {
 } from "react-native";
 
 const App = ({ newItem }) => {
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedItem, setSelectedItem] = useState([]);
   const [iseUse, setIsUse] = useState(false);
   const [render, setRender] = useState([]);
 
@@ -26,7 +26,7 @@ const App = ({ newItem }) => {
   }, [render, newItem]);
 
   const handleSelectItem = (item) => {
-    setSelectedItem(item);
+    setSelectedItem((prev) => [...prev, item]);
     setIsUse(true);
   };
 
@@ -37,23 +37,30 @@ const App = ({ newItem }) => {
 
   const deleteItem = () => {
     setIsUse(false);
+
     AsyncStorage.getItem("myDeal").then(async (res) => {
       const result = JSON.parse(res);
+
+      for (let i of selectedItem) {
+        result.text = result.text.filter((is) => is.id !== i.id);
+      }
 
       await AsyncStorage.setItem(
         "myDeal",
         JSON.stringify({
-          text: result.text.filter((item) => item.id !== selectedItem.id),
+          text: result.text,
         })
       );
 
-      setRender(result.text.filter((item) => item.id !== selectedItem.id));
+      setRender(result.text);
     });
+
+    setSelectedItem([]);
   };
 
   const renderItem = ({ item }) => {
-    console.log(selectedItem)
-    const isSelected = selectedItem && selectedItem.id === item.id;
+    let isSelected =
+      selectedItem.length > 0 && selectedItem.find((i) => i.id === item.id);
     const textStyle = { backgroundColor: isSelected ? "red" : "white" };
 
     return (
